@@ -13,9 +13,9 @@ const sequelize = new Sequelize(CONNECTION_STRING, {
 
 module.exports = {
     createCity: (req, res) => {
-        let {name, rating, countryId} = req.body
+        const {name, rating, countryId} = req.body
         sequelize.query(`
-        insert into cities(name, rating, country_id)no
+        insert into cities(name, rating, country_id)
         values ('${name}',${rating}, ${countryId})`)
         .then(dbRes => res.status(200).send(dbRes[0]))
         .catch(err => console.log(err))
@@ -23,9 +23,11 @@ module.exports = {
 
     getCities: (req, res) => {
         sequelize.query(`
-        select * from cities as city
-        join countries as country
-        on city.country_id = country.country_id
+        select ci.city_id, ci.name as city, ci.rating, co.country_id, co.name as country
+        from cities ci
+        join countries co
+        on co.country_id = ci.country_id
+        order by ci.rating desc;
         `)
         .then(dbRes => res.status(200).send(dbRes[0]))
         .catch(err => console.log(err))
