@@ -12,6 +12,16 @@ const sequelize = new Sequelize(CONNECTION_STRING, {
 })
 
 module.exports = {
+    deleteCity: (req, res) => {
+        const {id} = req.params
+        sequelize.query(`
+        delete from cities
+        WHERE city_id = ${id}
+        `)
+        .then(dvRes => res.status(200).send(dbRes[0]))
+        .catch()
+    },
+
     createCity: (req, res) => {
         const {name, rating, countryId} = req.body
         sequelize.query(`
@@ -253,6 +263,10 @@ module.exports = {
             ('Yemen'),
             ('Zambia'),
             ('Zimbabwe');
+
+            insert into cities (name, rating, country_id)
+            values('Santaquin', 3, 187),
+            ('Laf)
         `).then(() => {
             console.log('DB seeded!')
             res.sendStatus(200)
