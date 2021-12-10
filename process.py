@@ -10,3 +10,11 @@ def sales_reports(log_file): # define a function called sales reports, which wil
             print(line)      # if it is, print line
 
 sales_reports(log_file)      #invoke sales_reports function, passing in our log_file
+
+
+# EXTRA CREDIT
+
+def printMelons(melonOrders):
+    for melon in melonOrders:
+        if melon > 10:
+            print(melon)
